@@ -1,3 +1,4 @@
+$env:Path += ";C:\Users\gersi\scoop\apps\oh-my-posh\12.2.0\bin\"
 # Prompt
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 Import-Module posh-git
@@ -9,8 +10,12 @@ Import-Module -Name terminal-Icons
 Import-Module CompletionPredictor
 
 # Path fixes
-$env:Path += ";C:\Program Files\nodejs\"
-$env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WindowsApps\"
+$env:Path += ";C:\Program Files\nodejs\;"
+$env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WindowsApps\;"
+$env:Path += ";~\.cargo\bin\;"
+$env:Path += ";C:\Users\gersi\AppData\Local\Programs\Microsoft VS Code;"
+
+
 
 
 # Cool Features
@@ -35,23 +40,34 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory
 $scriptblock = {
     param($wordToComplete, $commandAst, $cursorPosition)
     dotnet complete --position $cursorPosition $commandAst.ToString() |
-    ForEach-Object {
-        [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-    }
+        ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+        }
 }
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock $scriptblock
 
 # Usefull Functions
-function time { $Command = "$args"; Measure-Command { Invoke-Expression $Command 2>&1 | out-default} }
-function launchExplorerInCurrentDir { explorer . }
-function launchCodeInCurrentDir { code . }
-function kall { $Command = "$args"; sudo kill -Force -Name $Command }
+function time
+{ $Command = "$args"; Measure-Command { Invoke-Expression $Command 2>&1 | out-default} 
+}
+function launchExplorerInCurrentDir
+{ explorer . 
+}
+function launchCodeInCurrentDir
+{ code . 
+}
+function kall
+{ $Command = "$args*"; sudo kill -Force -Name $Command
+}
 # Alias
 Set-Alias vim nvim
 Set-Alias ll ls
 Set-Alias grep findstr
 Set-Alias tig 'C:\Program Files\Git\usr\brin\tig.exe'
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
+Set-Alias ahk2exe 'C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe'
+Set-Alias ahks 'C:\Users\gersi\Desktop\scripts\screenShotShortcut.exe'
+Set-Alias replaceAHK 'C:\Users\gersi\Desktop\scripts\replaceAhkScript.ps1'
 Set-Alias j z
 Set-Alias touch New-Item
 Set-Alias e launchExplorerInCurrentDir
