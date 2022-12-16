@@ -14,6 +14,13 @@ $env:Path += ";C:\Program Files\nodejs\;"
 $env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WindowsApps\;"
 $env:Path += ";~\.cargo\bin\;"
 $env:Path += ";C:\Users\gersi\AppData\Local\Programs\Microsoft VS Code;"
+$env:Path += ";C:\Users\gersi\AppData\Local\Programs\MiKTeX\miktex\bin\x64;"
+$env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WinGet\Links\;"
+$env:Path += ";C:\Users\gersi\AppData\Local\Programs\Python\Python311\;"
+$env:Path += ";C:\Users\gersi\AppData\Local\Programs\Python\Python311\Scripts\;"
+$env:Path += ";C:\Program Files\SumatraPDF\;"
+
+
 
 
 
