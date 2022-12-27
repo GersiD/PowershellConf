@@ -1,27 +1,20 @@
-$env:Path += ";C:\Users\gersi\scoop\apps\oh-my-posh\12.2.0\bin\"
+Set-Location C:\Users\Gersi\Desktop\gradSchool\
 # Prompt
 [console]::InputEncoding = [console]::OutputEncoding = New-Object System.Text.UTF8Encoding
 Import-Module posh-git
-oh-my-posh init pwsh --config 'C:\Users\gersi\scoop\apps\oh-my-posh\current\themes\jandedobbeleer.omp.json' | Invoke-Expression
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH\jv_sitecorian.omp.json"| Invoke-Expression
 
 # Imports
 Import-Module PSFzf
 Import-Module -Name terminal-Icons
 Import-Module CompletionPredictor
 
-# Path fixes
-$env:Path += ";C:\Program Files\nodejs\;"
-$env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WindowsApps\;"
-$env:Path += ";~\.cargo\bin\;"
-$env:Path += ";C:\Users\gersi\AppData\Local\Programs\Microsoft VS Code;"
-$env:Path += ";C:\Users\gersi\AppData\Local\Programs\MiKTeX\miktex\bin\x64;"
-$env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WinGet\Links\;"
-$env:Path += ";C:\Users\gersi\AppData\Local\Programs\Python\Python311\;"
-$env:Path += ";C:\Users\gersi\AppData\Local\Programs\Python\Python311\Scripts\;"
-$env:Path += ";C:\Program Files\SumatraPDF\;"
-
-
-
+$env:Path += ';C:\Users\Gersi\.cargo\bin\;'
+$env:Path += ';C:\Program Files\nodejs\;'
+$env:Path += ';C:\Users\Gersi\scoop\apps\gcc\11.2.0\bin\;'
+$env:Path += ';C:\Users\Gersi\AppData\Local\Microsoft\WinGet\Links\;' 
+$env:Path += ';C:\Program Files\AutoHotkey\Compiler\;' 
+$env:Path += ';C:\Users\Gersi\AppData\Local\Microsoft\WindowsApps\;'
 
 
 
@@ -39,7 +32,7 @@ $PSROptions = @{
 Set-PSReadLineOption @PSROptions
 Set-PSReadLineOption -BellStyle None
 Set-PSReadLineOption -PredictionSource HistoryAndPlugin
-Set-PSReadlineKeyHandler -Chord 'Ctrl+Shift+A' -Function AcceptNextSuggestionWord 
+Set-PSReadlineKeyHandler -Chord 'Ctrl+Shift+A' -Function AcceptSuggestion 
 # Cntrl + Shift + A now accepts the next word
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+f' -PSReadlineChordReverseHistory 'Ctrl+r'
 
@@ -53,30 +46,23 @@ $scriptblock = {
 }
 Register-ArgumentCompleter -Native -CommandName dotnet -ScriptBlock $scriptblock
 
-# Usefull Functions
-function time
-{ $Command = "$args"; Measure-Command { Invoke-Expression $Command 2>&1 | out-default} 
-}
-function launchExplorerInCurrentDir
-{ explorer . 
-}
-function launchCodeInCurrentDir
-{ code . 
-}
-function kall
-{ $Command = "$args*"; sudo kill -Force -Name $Command
-}
+# source local functions before aliasing
+. "C:\Users\Gersi\.config\powershell\local_funcs.ps1"
 # Alias
 Set-Alias vim nvim
-Set-Alias ll ls
+Set-Alias l ls
 Set-Alias grep findstr
 Set-Alias tig 'C:\Program Files\Git\usr\brin\tig.exe'
 Set-Alias less 'C:\Program Files\Git\usr\bin\less.exe'
-Set-Alias ahk2exe 'C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe'
-Set-Alias ahks 'C:\Users\gersi\Desktop\scripts\screenShotShortcut.exe'
-Set-Alias replaceAHK 'C:\Users\gersi\Desktop\scripts\replaceAhkScript.ps1'
 Set-Alias j z
 Set-Alias touch New-Item
+Set-Alias ex explorer
 Set-Alias e launchExplorerInCurrentDir
-Set-Alias which Get-Command
 Set-Alias c launchCodeInCurrentDir
+## Which command equiv
+Set-Alias which Get-Command
+## Command to power off the PC
+Set-Alias off shut_down_pc
+Set-Alias replaceAHK 'C:\Users\Gersi\Desktop\AHKScripts\replaceAhkScript.ps1'
+Set-Alias v nvim
+Set-Alias nap sleep_pc
