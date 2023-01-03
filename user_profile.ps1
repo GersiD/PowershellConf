@@ -18,7 +18,6 @@ $env:Path += ";C:\Users\gersi\AppData\Local\Programs\MiKTeX\miktex\bin\x64;"
 $env:Path += ";C:\Users\gersi\AppData\Local\Microsoft\WinGet\Links\;"
 $env:Path += ";C:\Users\gersi\AppData\Local\Programs\Python\Python311\;"
 $env:Path += ";C:\Users\gersi\AppData\Local\Programs\Python\Python311\Scripts\;"
-$env:Path += ";C:\Program Files\SumatraPDF\;"
 
 
 
@@ -66,8 +65,23 @@ function launchCodeInCurrentDir
 function kall
 { $Command = "$args*"; sudo kill -Force -Name $Command
 }
+function shut_down_pc
+{
+    Stop-Computer -Force
+}
+function rm_force {
+    $Command = "$args"; Remove-Item -Force $Command
+}
+function sleep_pc {
+    Add-Type -AssemblyName System.Windows.Forms
+    $PowerState = [System.Windows.Forms.PowerState]::Hibernate;
+    $Force = $true;   
+    $DisableWake = $false;
+    # The following function takes (State, Force, DisableWake) as parameters
+    [System.Windows.Forms.Application]::SetSuspendState($PowerState, $Force, $DisableWake);
+}
 # Alias
-Set-Alias vim nvim
+Set-Alias v nvim
 Set-Alias ll ls
 Set-Alias grep findstr
 Set-Alias tig 'C:\Program Files\Git\usr\brin\tig.exe'
@@ -80,3 +94,6 @@ Set-Alias touch New-Item
 Set-Alias e launchExplorerInCurrentDir
 Set-Alias which Get-Command
 Set-Alias c launchCodeInCurrentDir
+Set-Alias off shut_down_pc
+Set-Alias rm rm_force
+Set-Alias nap sleep_pc
